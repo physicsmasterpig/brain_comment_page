@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="test_info.css">
+
+</head>
+<body>
+
+    <div><button type="button" id="test_info_popup_open_button">Add</button></div>
+
+    <div id="test_info_popup">
+   
+        <div class="test_info_popup_content">
+            <h2>Add Test Information</h2>
+           
+            <p>모달 창 입니다.</p>
+           <div>
+            <form method="post" action="https://script.google.com/macros/s/AKfycbyURzC49sFTyfh8SmQ1FjidAragtndPqryqShSEFhzFlPcWwSItbD2ekHj2OA4y4sdm/exec">
+                학교: <select name="school" required>
+                    <option value="gbshs">경기북과학고등학교</option>
+                    <option value="hshs">한성과학고등학교</option>
+                </select><br>
+                학년: <input type="number" name="grade" placeholder="Grade" required><br>
+                시험 날짜: <input type="date" name="date" placeholder="Date" required><br>
+                문제 수: <input type="number" name="problem_amount" placeholder="Number" required><br>
+                코멘트 방식: <select name="comment_method" required>
+                    <option value="0">문제별 코멘트</option>
+                    <option value="1">종합 코멘트</option>
+                    <option value="2">둘 다</option>
+                </select>
+                <button type="submit" id="test_info_popup_close_button">Submit</button>
+            </form>
+           </div>
+            <div><button type="button" id="test_info_popup_close_button">Close</button>   </div>
+
+        </div>
+       
+        <div class="test_info_popup_layer"></div>
+    </div>
+    <script src="test_info_popup.js"></script>
+</body>
+</html>
