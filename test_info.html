@@ -18,8 +18,7 @@
             <h2>Add Test Information</h2>
            
             <p>모달 창 입니다.</p>
-           <div>
-            <form method="post" action="https://script.google.com/macros/s/AKfycbyURzC49sFTyfh8SmQ1FjidAragtndPqryqShSEFhzFlPcWwSItbD2ekHj2OA4y4sdm/exec">
+            <form method="post" action="https://script.google.com/macros/s/AKfycbwJvbEeez9SigsFExPk7ySXCl3H3uUmXWOdpumqvoXYdoHmf7SyXg1ZX4_RjMLS_OoR/exec">
                 학교: <select name="school" required>
                     <option value="gbshs">경기북과학고등학교</option>
                     <option value="hshs">한성과학고등학교</option>
@@ -31,16 +30,21 @@
                     <option value="0">문제별 코멘트</option>
                     <option value="1">종합 코멘트</option>
                     <option value="2">둘 다</option>
-                </select>
-                <button type="submit" id="test_info_popup_close_button">Submit</button>
+                </select><br>
+                채점자: <input type="text" name="grader" placeholder="name" required><br>
+                <button type="submit"  >Submit</button>
             </form>
-           </div>
-            <div><button type="button" id="test_info_popup_close_button">Close</button>   </div>
+            <button type="button" id="test_info_popup_close_button">Close</button>
 
         </div>
        
         <div class="test_info_popup_layer"></div>
     </div>
+
+    <table class="output"></table>
+
+    <script src="test_info.js"></script>
     <script src="test_info_popup.js"></script>
+
 </body>
 </html>
