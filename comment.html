@@ -9,33 +9,16 @@
 
 </head>
 <body>
-    <div><button type="button" id="comment_info_popup_open_button">Add</button></div>
 
-
-    <div id="comment_info_popup">
-   
-        <div class="comment_info_popup_content">
-            <h2>Add Test Information</h2>
-           
-            <p>모달 창 입니다.</p>
-           <div>
-            <form action="#" name="comment_module" method="post">
-                이름: <input type="text" name="name">
-                <fieldset name="problem_module">
-                    <h2>문제 1</h2>
-                    점수: <input type="number" name="score"><br>
-                    코멘트: <input type="text" name="comment">
-                </fieldset>
-                <button type="submit">Submit</button>
-            </form>
-           </div>
-            <div><button type="button" id="comment_info_popup_close_button">Close</button>   </div>
-
-        </div>
-       
-        <div class="comment_info_popup_layer"></div>
+    <div id="comment_table">
+        <button type="button" onclick = "addStudent()">Add</button>
     </div>
-    <script src="comment_info_popup.js"></script>
+    <button type="button" onclick="document.getElementById('form_tag').submit();"">Save</button>
+
+    <table class="output"></table>
+
+    <script src="test_info.js"></script>
+
     <script src="comment_setup.js"></script>
 
 </body>

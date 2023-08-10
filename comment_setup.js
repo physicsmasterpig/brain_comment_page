@@ -1,27 +1,46 @@
-var test_no
-var school
-var grade
-var date
-var problem_amount
-var comment_method
+let num = 0;
+
+function addStudent() {
+
+const a = document.getElementById('comment_table');
+const new_form_tag = document.createElement('form');
+
+new_form_tag.setAttribute('id', 'form_tag');
+new_form_tag.setAttribute('method', 'post');
+new_form_tag.setAttribute('action', 'https://script.google.com/macros/s/AKfycby7o6mNDdpuDVxCeTNIKD961M8qvmox4RcpGsLzaBrt5Ya1jE8fb2JPkF1e0FLtcwFN6A/exec');
+
+a.appendChild(new_form_tag);
+const new_input_tag_name = document.createElement('input');
+new_input_tag_name.setAttribute('class', 'name');
+new_input_tag_name.setAttribute('name', 'name');
+new_form_tag.appendChild(new_input_tag_name);
 
 
-$.get("hhttps://script.google.com/macros/s/AKfycbzUeQPWb22MZT36CKh7abZYz-sJ0fZ-jlvKgrYuDeNAqAXg38UWrqqbvei8GTU9wzhW/exec", {
+const new_input_tag_attendence = document.createElement('input');
+new_input_tag_attendence.setAttribute('class', 'input_tag_attendence');
+new_input_tag_attendence.setAttribute('type', 'checkbox');
+new_input_tag_attendence.setAttribute('checked', 'checked');
+new_input_tag_attendence.setAttribute('name', 'attendence');
+new_form_tag.appendChild(new_input_tag_attendence);
 
-    action : "getItems"
+const new_input_tag_homework= document.createElement('input');
+new_input_tag_homework.setAttribute('class', 'input_tag_homework');
+new_input_tag_homework.setAttribute('type', 'checkbox');
+new_input_tag_homework.setAttribute('checked', 'unchecked');
+new_input_tag_homework.setAttribute('name', 'homework');
+new_form_tag.appendChild(new_input_tag_homework);
 
-  }).done(function(data){
+const new_input_tag_score = document.createElement('input');
+new_input_tag_score.setAttribute('class', 'input_tag_score_1');
+new_input_tag_score.setAttribute('name', 'score_1');
+new_form_tag.appendChild(new_input_tag_score);
+const new_input_tag_comment = document.createElement('input');
+new_input_tag_comment.setAttribute('class', 'input_tag_comment_1');
+new_input_tag_comment.setAttribute('name', 'comment_1');
+new_form_tag.appendChild(new_input_tag_comment);
 
-   test_no = data.items[data.items.length].No
-   school = data.items[data.items.length].school
-   grade = data.items[data.items.length].grade
-   date = data.items[data.items.length].date
-   problem_amount = data.items[data.items.length].problem_amount
-   comment_method = data.items[data.items.length].comment_method
 
 
-  }).fail(function(data){
+num++;
+}
 
-    //실패시 들어갈 코드
-
-  });
