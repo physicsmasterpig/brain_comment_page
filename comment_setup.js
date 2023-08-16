@@ -1,8 +1,8 @@
 let num = 0;
 const recieved_data = location.href.split('?')[1];
-const no = recieved_data.split('&')[0];
-const comment_method = recieved_data.split('&')[2];
-const problem_number = recieved_data.split('&')[1];
+const no = parseInt(recieved_data.split('&')[0]);
+const comment_method = paresInt(recieved_data.split('&')[2]);
+const problem_number = paresInt(recieved_data.split('&')[1]);
 
 
 
@@ -44,7 +44,7 @@ for(var i=1; i<problem_number+1; i++){
     new_input_tag_score[i] = document.createElement('input');
     str[0] = "input_tag_score_" + i;
     new_input_tag_score[i].setAttribute('class', str[0]);
-    str[1] = "score_" + i
+    str[1] = "score_" + i;
     new_input_tag_score[i].setAttribute('name', str[1]);
     new_form_tag.appendChild(new_input_tag_score[i]);
     new_input_tag_comment[i] = document.createElement('input');
