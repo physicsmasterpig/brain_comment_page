@@ -1,7 +1,13 @@
 let num = 0;
+const recieved_data = location.href.split('?')[1];
+const no = recieved_data.split('&')[0];
+const comment_method = recieved_data.split('&')[2];
+const problem_number = recieved_data.split('&')[1];
+
+
 
 function addStudent() {
-
+if(comment_method == 0){
 const a = document.getElementById('comment_table');
 const new_form_tag = document.createElement('form');
 
@@ -30,17 +36,17 @@ new_input_tag_homework.setAttribute('checked', 'unchecked');
 new_input_tag_homework.setAttribute('name', 'homework');
 new_form_tag.appendChild(new_input_tag_homework);
 
-const new_input_tag_score = document.createElement('input');
-new_input_tag_score.setAttribute('class', 'input_tag_score_1');
-new_input_tag_score.setAttribute('name', 'score_1');
-new_form_tag.appendChild(new_input_tag_score);
-const new_input_tag_comment = document.createElement('input');
-new_input_tag_comment.setAttribute('class', 'input_tag_comment_1');
-new_input_tag_comment.setAttribute('name', 'comment_1');
-new_form_tag.appendChild(new_input_tag_comment);
-
-
+for(var i=1; i <problem_number+1; i++){
+    const new_input_tag_score = document.createElement('input');
+    new_input_tag_score.setAttribute('class', 'input_tag_score_'+i);
+    new_input_tag_score.setAttribute('name', 'score_'+i);
+    new_form_tag.appendChild(new_input_tag_score);
+    const new_input_tag_comment = document.createElement('input');
+    new_input_tag_comment.setAttribute('class', 'input_tag_comment_'+i);
+    new_input_tag_comment.setAttribute('name', 'comment_'+i);
+    new_form_tag.appendChild(new_input_tag_comment);
+}
 
 num++;
 }
-
+}

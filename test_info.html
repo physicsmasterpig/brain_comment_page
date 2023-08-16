@@ -17,20 +17,21 @@
         <div class="test_info_popup_content">
             <h2>Add Test Information</h2>
            
-            <form method="post" action="https://script.google.com/macros/s/AKfycbwRfuf58UElruVJB-NlEXJy2bcoCH94TJ8WAryrBiuxHK7krxucvLLT8f3JhcyDb8Ry/exec">
+            <form method="post" action="https://script.google.com/macros/s/AKfycbzyfz8VvGgTqCNuDKiZrhuxpqDP2j_OY5hTMhVTTRVpn4bjWyCzZ-nj2DxdNKdm2Bnu/exec">
                 학교: <select name="school" required>
                     <option value="gbshs">경기북과학고등학교</option>
                     <option value="hshs">한성과학고등학교</option>
                 </select><br>
-                학년: <input type="number" name="grade" placeholder="Grade" required><br>
-                시험 날짜: <input type="date" name="date" placeholder="Date" required><br>
-                문제 수: <input type="number" name="problem_amount" placeholder="Number" required><br>
+                학년: <input type="number" name="grade" value ="1" placeholder="Grade" required><br>
+                시험 날짜: <input id = "currentDate" type="date" name="date" value = "Date()" placeholder="Date" required><br>
+                문제 수: <input type="number" name="problem_amount" value="2" placeholder="Number" required><br>
                 코멘트 방식: <select name="comment_method" required>
                     <option value="0">문제별 코멘트</option>
                     <option value="1">종합 코멘트</option>
                     <option value="2">둘 다</option>
                 </select><br>
                 채점자: <input type="text" name="grader" placeholder="name" required><br>
+                비고: <input type="note" name = "note"><br>
                 <button type="submit"  >Submit</button>
             </form>
             <button type="button" id="test_info_popup_close_button">Close</button>
@@ -44,6 +45,9 @@
 
     <script src="test_info.js"></script>
     <script src="test_info_popup.js"></script>
-
+    <script>
+        document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);;
+      </script>
+      
 </body>
 </html>
