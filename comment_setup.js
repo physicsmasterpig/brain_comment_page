@@ -4,8 +4,8 @@ num = 0;
 function addStudent() {
     const recieved_data = location.href.split('?')[1];
 const no = parseInt(recieved_data.split('&')[0]);
-const comment_method = paresInt(recieved_data.split('&')[2]);
-const problem_number = paresInt(recieved_data.split('&')[1]);
+const comment_method = parseInt(recieved_data.split('&')[2]);
+const problem_number = parseInt(recieved_data.split('&')[1]);
 if(comment_method == 0){
 const a = document.getElementById('comment_table');
 const new_form_tag = document.createElement('form');
