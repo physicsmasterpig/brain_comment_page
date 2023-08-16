@@ -37,11 +37,11 @@ new_input_tag_homework.setAttribute('name', 'homework');
 new_form_tag.appendChild(new_input_tag_homework);
 
 for(var i=1; i <problem_number+1; i++){
-    const new_input_tag_score = document.createElement('input');
+    var new_input_tag_score = document.createElement('input');
     new_input_tag_score.setAttribute('class', 'input_tag_score_'+i);
     new_input_tag_score.setAttribute('name', 'score_'+i);
     new_form_tag.appendChild(new_input_tag_score);
-    const new_input_tag_comment = document.createElement('input');
+    var new_input_tag_comment = document.createElement('input');
     new_input_tag_comment.setAttribute('class', 'input_tag_comment_'+i);
     new_input_tag_comment.setAttribute('name', 'comment_'+i);
     new_form_tag.appendChild(new_input_tag_comment);
