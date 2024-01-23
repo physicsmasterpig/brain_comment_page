@@ -1,0 +1,33 @@
+body {
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+  }
+
+.banner_list {
+    width: 200px;
+    height: 280px;
+    position: fixed;
+}
+
+.banner {
+    height: 70px;
+    width: 200px;
+    text-align: center;
+    line-height: 70px;
+    border: 1px solid black;
+    background-color: #eee;
+    cursor: pointer;
+    box-shadow: 1px 4px 0 rgb(0,0,0,0.5);
+}
+
+.banner:active {
+    box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+    position: relative;
+    top:2px;
+  }
+
+.banner:hover {
+    background-color:aquamarine;
+  }

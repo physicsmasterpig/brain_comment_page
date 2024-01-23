@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="class_info.css">
+
+</head>
+<body>
+    <div><button type="button" id="class_info_popup_open_button">Create Class</button></div>
+
+    <div id="class_info_popup">
+   
+        <div class="class_info_popup_content">
+            <h2>Add class Information</h2>
+           
+            <form method="post" action="https://script.google.com/macros/s/AKfycbwnT-wKAAXHu1ZoLhlkWsv_d5JQ6DlJFBp73Grk_xn5HTd3L_bkKSmuR4oCxuGY2u4bOA/exec">
+                학기: <select name="period" required>
+                    <option value="23-0">2023년 겨울학기</option>
+                    <option value="23-1">2323년 1학기</option>
+                    <option value="23-2">2023년 여름학기</option>
+                    <option value="23-3">2323년 2학기</option>
+                </select><br>
+                학교: <select name="school" required>
+                    <option value="gbshs">경기북과학고등학교</option>
+                    <option value="hshs">한성과학고등학교</option>
+                </select><br>
+                학년: <input type="number" name="grade" value ="1" placeholder="Grade" required><br>
+                시간: <select name="time1" required>
+                    <option value="mon">월요일</option>
+                    <option value="tue">화요일</option>
+                    <option value="wed">수요일</option>
+                    <option value="thu">목요일</option>
+                    <option value="fri">금요일</option>
+                    <option value="sat">토요일</option>
+                    <option value="sun">일요일</option>
+                </select>
+                <select name="time2" required>
+                    <option value="1">13:00-16:00</option>
+                    <option value="2">16:00-19:00</option>
+                    <option value="3">19:00-22:00</option>
+                </select><br>
+                비고: <input type="note" name = "note"><br>
+                <button type="submit"  >Submit</button>
+            </form>
+            <button type="button" id="class_info_popup_close_button">Close</button>
+
+        </div>
+       
+        <div class="class_info_popup_layer"></div>
+    </div>
+
+    <table class="output"></table>
+
+    <script src="class_info.js"></script>
+    <script src="class_info_popup.js"></script>
+    <script>
+        document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);;
+    </script>
+</body>
+</html>
