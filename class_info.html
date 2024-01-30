@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="class_info.css">
 
 </head>
+<header>   <button data-navigate="/class1">home</button>
+    <button data-navigate="/class2">melon</button></header>
 <body>
     <div><button type="button" id="class_info_popup_open_button">Create Class</button></div>
 
@@ -16,7 +18,7 @@
         <div class="class_info_popup_content">
             <h2>Add class Information</h2>
            
-            <form method="post" action="https://script.google.com/macros/s/AKfycbyEIg-pUlpZng8ecExwjnoJ61rl2icvSKWTspP92gvzSVMmOqFIdx8_pLnepICL4hJgXg/exec">
+            <form method="post" action="https://script.google.com/macros/s/AKfycbxK-lZJwDRZIM5er4lUzTedMC0fVhvHT0dsUANTuyvS9AhdYHtFqfnZlJB35tCGbLL-xw/exec">
                 학기: <select name="period" required>
                     <option value="23-0">2023년 겨울학기</option>
                     <option value="23-1">2323년 1학기</option>
@@ -53,7 +55,11 @@
     </div>
 
     <table class="output"></table>
-
+    <a href="#/class1">class1</a>
+    <a href="#/class2">class2</a>
+    <p id="asdf"></p>
+    <script src="router.js" type="module"></script>
+    <script src ="class_info_router.js" type="module"></script>
     <script src="class_info.js"></script>
     <script src="class_info_popup.js"></script>
     <script>
