@@ -1,0 +1,41 @@
+ID
+	학생 - 00-000-000 			Student ID = 학교(school) + 기수(grade) + 출석 번호(student_no)
+	수업 - 2023-1-01-01-1 		Class ID = 년도(Year) + 학기(Semester) + 학교(school) + 기수(grade) + 시간표(time)
+	단원 - 				Subject ID = 대분류(Large Class) + 중분류(Middle Class) + 소분류(Small Class) 
+						
+		강의 - 2023-1-01-01-1-1		Lecture ID = Class ID + Lecture No 
+			출석 - 			Attendence ID = Lecture ID + 1
+			숙제 - 			Homework ID = Lecture ID + 2 
+			시험 - 			Test ID = Lecture ID + 3 
+				시험 문제 - 		Test Problem ID = Test ID + 문항 번호(Problem_No) 
+
+연결
+	학생 - 수업
+	강의 - 단원
+	시험 문제 - 단원
+	숙제 - 단원
+
+	
+
+값
+	학교 - 	경기북과학고등학교 : 01
+		광주영재학교: 02
+		대전영재학교: 03
+
+	학기 -	겨울: 1
+		1학기: 2
+		여름: 3
+		2학기: 4
+		
+	시간표 -	요일 + 시작 시각 + 소요 시간
+			월~일 = 1~7
+	
+
+
+필용한 기능
+	학생 추가/삭제
+	수업 추가/삭제
+	단원 추가/삭제
+	연결 생성
+	강의 등록
+	시험 등록
