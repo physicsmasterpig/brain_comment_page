@@ -20,9 +20,10 @@ class classs:
         self.time = time
         self.id = str(year) + "-" + str(semester) + "-" + str(school) + "-" + str(grade) + "-" + str(time)
 
-    def initial(self, classes):
+    def initial(self, classes, valid):
         for i in range(len(classes)):
             worksheet_id.update_cell(i + 1, 5, classes[i])
+            worksheet_id.update_cell(i + 1, 6, valid[i])
 
 
 class student:
