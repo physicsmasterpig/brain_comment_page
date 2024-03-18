@@ -13,7 +13,7 @@ doc = gc.open_by_url(sheet_url)
 worksheet_id = doc.worksheet('ID')
 worksheet_link = doc.worksheet('link')
 
-classes = []
+classes = worksheet_id.col_values(5)
 
 
 def class_submit():
@@ -23,7 +23,8 @@ def class_submit():
     grade = 20
     time = 1
     class1 = initial.classs(year, semester, school, grade, time)
-    classes.append(class1)
+    classes.append(class1.id)
+    class1.initial(classes)
 
 
 def student_submit():
@@ -34,7 +35,7 @@ def student_submit():
     class1 = classes[0]
     cnt = 0
     for i in worksheet_link.col_values(2):
-        if i == class1.id:
+        if i == class1:
             cnt = cnt + 1
     student_no = cnt + 1
     student = initial.student(name, school, grade, student_no)
