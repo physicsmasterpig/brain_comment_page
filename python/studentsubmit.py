@@ -13,32 +13,105 @@ doc = gc.open_by_url(sheet_url)
 worksheet_id = doc.worksheet('ID')
 worksheet_link = doc.worksheet('link')
 
-classes = []
+students = worksheet_id.col_values(1)
+students_name = worksheet_id.col_values(2)
+valid = worksheet_id.col_values(3)
+classes = worksheet_id.col_values(5)
+classes_valid = worksheet_id.col_values(6)
 
 
 def class_submit():
     year = 2024
     semester = 1
-    school = 1
+    school = '경기북과학고'
+    if school == '경기북과학고':
+        school = 1
+    elif school == '광주영재학교':
+        school = 2
+    else:
+        school = 3
     grade = 20
     time = 1
     class1 = initial.classs(year, semester, school, grade, time)
-    classes.append(class1)
+    classes.append(class1.id)
+    classes_valid.append(1)
+    class1.initial(classes, classes_valid)
 
 
 def student_submit():
     name = '이윤수'
     school = '경기북과학고'
-    if school == '경기북과학고': school = 1
+    if school == '경기북과학고':
+        school = 1
+    elif school == '광주영재학교':
+        school = 2
+    else:
+        school = 3
     grade = 20
     class1 = classes[0]
     cnt = 0
-    for i in worksheet_id.col_values(1):
-        if i[0:4] == str(school) + "-" + str(grade) :
+    for i in worksheet_link.col_values(2):
+        if i == class1:
             cnt = cnt + 1
     student_no = cnt + 1
     student = initial.student(name, school, grade, student_no)
     student.initial(class1)
 
-class_submit()
-student_submit()
+
+def student_delete():
+    name = '이윤수'
+    school = '경기북과학고'
+    if school == '경기북과학고':
+        school = 1
+    elif school == '광주영재학교':
+        school = 2
+    else:
+        school = 3
+    grade = 20
+    for i in range(len(students_name)):
+        if students_name[i] == name and str(school) + "-" + str(grade) + "-" in students[i]:
+            valid[i] = 0
+            break
+    for i in range(len(students_name)):
+        worksheet_id.update_cell(i + 1, 3, valid[i])
+
+
+def student_valid():
+    name = '이윤수'
+    school = '경기북과학고'
+    if school == '경기북과학고':
+        school = 1
+    elif school == '광주영재학교':
+        school = 2
+    else:
+        school = 3
+    grade = 20
+    for i in range(len(students_name)):
+        if students_name[i] == name and str(school) + "-" + str(grade) + "-" in students[i]:
+            valid[i] = 1
+            break
+    for i in range(len(students_name)):
+        worksheet_id.update_cell(i + 1, 3, valid[i])
+
+
+def class_delete():
+    year = 2024
+    semester = 1
+    school = '경기북과학고'
+    if school == '경기북과학고':
+        school = 1
+    elif school == '광주영재학교':
+        school = 2
+    else:
+        school = 3
+    grade = 20
+    time = 1
+    class1 = initial.classs(year, semester, school, grade, time)
+    for i in range(len(students_name)):
+        if classes_valid == class1.id:
+            classes_valid[i] = 0
+            break
+    for i in range(len(students_name)):
+        worksheet_id.update_cell(i + 1, 6, classes_valid[i])
+
+

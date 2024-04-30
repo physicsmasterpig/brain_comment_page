@@ -24,6 +24,11 @@ class classs:
         length = len(worksheet_id.col_values(4))
         worksheet_id.update_cell(length+1, 4, self.id)
 
+    def initial(self, classes, valid):
+        for i in range(len(classes)):
+            worksheet_id.update_cell(i + 1, 5, classes[i])
+            worksheet_id.update_cell(i + 1, 6, valid[i])
+
 
 class student:
     def __init__(self, name, school, grade, student_no):
@@ -35,7 +40,8 @@ class student:
     def initial(self, clas):
         length1 = len(worksheet_id.col_values(1))
         length2 = len(worksheet_link.col_values(1))
-        worksheet_id.update_cell(length1+1, 1, self.id)
-        worksheet_id.update_cell(length1+1, 2, self.name)
-        worksheet_link.update_cell(length2+1, 1, self.id)
-        worksheet_link.update_cell(length2+1, 2, clas.id)
+        worksheet_id.update_cell(length1 + 1, 1, self.id)
+        worksheet_id.update_cell(length1 + 1, 2, self.name)
+        worksheet_id.update_cell(length1 + 1, 3, 1)
+        worksheet_link.update_cell(length2 + 1, 1, self.id)
+        worksheet_link.update_cell(length2 + 1, 2, clas)
