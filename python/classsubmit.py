@@ -23,22 +23,6 @@ def class_submit():
     grade = 20
     time = 1
     class1 = initial.classs(year, semester, school, grade, time)
-    classes.append(class1)
-
-
-def student_submit():
-    name = '이윤수'
-    school = '경기북과학고'
-    if school == '경기북과학고': school = 1
-    grade = 20
-    class1 = classes[0]
-    cnt = 0
-    for i in worksheet_id.col_values(1):
-        if i[0:4] == str(school) + "-" + str(grade) :
-            cnt = cnt + 1
-    student_no = cnt + 1
-    student = initial.student(name, school, grade, student_no)
-    student.initial(class1)
+    class1.initial()
 
 class_submit()
-student_submit()
