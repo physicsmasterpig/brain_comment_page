@@ -5,7 +5,7 @@ import initial
 from oauth2client.service_account import ServiceAccountCredentials
 
 scope = 'https://spreadsheets.google.com/feeds'
-json = 'python\driven-catalyst-411908-9c041a7750dd.json'
+json = 'driven-catalyst-411908-9c041a7750dd.json'
 credentials = ServiceAccountCredentials.from_json_keyfile_name(json, scope)
 gc = gspread.authorize(credentials)
 sheet_url = 'https://docs.google.com/spreadsheets/d/1-xp3axKvBFVAMDt0SpnW1oxtPH9lzlgSvEN-WZna2H0/edit#gid=0'
@@ -38,7 +38,7 @@ def class_submit():
         if i == class1.id:
             return
     classes.append(class1.id)
-    classes_valid.append(1)
+    classes_valid.append("v")
     class1.initial(classes, classes_valid)
 
 
@@ -77,7 +77,7 @@ def student_delete():
     grade = 20
     for i in range(len(students_name)):
         if students_name[i] == name and str(school) + "-" + str(grade) + "-" in students[i]:
-            valid[i] = 0
+            valid[i] = "i"
             break
     for i in range(len(students_name)):
         worksheet_id.update_cell(i + 1, 3, valid[i])
@@ -95,7 +95,7 @@ def student_valid():
     grade = 20
     for i in range(len(students_name)):
         if students_name[i] == name and str(school) + "-" + str(grade) + "-" in students[i]:
-            valid[i] = 1
+            valid[i] = "v"
             break
     for i in range(len(students_name)):
         worksheet_id.update_cell(i + 1, 3, valid[i])
@@ -116,7 +116,7 @@ def class_delete():
     class1 = initial.classs(year, semester, school, grade, time)
     for i in range(len(students_name)):
         if classes_valid == class1.id:
-            classes_valid[i] = 0
+            classes_valid[i] = "i"
             break
     for i in range(len(students_name)):
         worksheet_id.update_cell(i + 1, 6, classes_valid[i])

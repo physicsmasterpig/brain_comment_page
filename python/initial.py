@@ -2,7 +2,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 scope = 'https://spreadsheets.google.com/feeds'
-json = 'python\driven-catalyst-411908-9c041a7750dd.json'
+json = 'driven-catalyst-411908-9c041a7750dd.json'
 credentials = ServiceAccountCredentials.from_json_keyfile_name(json, scope)
 gc = gspread.authorize(credentials)
 sheet_url = 'https://docs.google.com/spreadsheets/d/1-xp3axKvBFVAMDt0SpnW1oxtPH9lzlgSvEN-WZna2H0/edit#gid=0'
@@ -19,10 +19,7 @@ class classs:
         self.grade = grade
         self.time = time
         self.id = str(year) + "-" + str(semester) + "-" + str(school) + "-" + str(grade) + "-" + str(time)
-        
-    def initial(self):
-        length = len(worksheet_id.col_values(4))
-        worksheet_id.update_cell(length+1, 4, self.id)
+
 
     def initial(self, classes, valid):
         for i in range(len(classes)):
@@ -46,6 +43,6 @@ class student:
         length2 = len(worksheet_link.col_values(1))
         worksheet_id.update_cell(length1 + 1, 1, self.id)
         worksheet_id.update_cell(length1 + 1, 2, self.name)
-        worksheet_id.update_cell(length1 + 1, 3, 1)
+        worksheet_id.update_cell(length1 + 1, 3, "v")
         worksheet_link.update_cell(length2 + 1, 1, self.id)
         worksheet_link.update_cell(length2 + 1, 2, clas)
