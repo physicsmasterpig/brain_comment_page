@@ -14,6 +14,7 @@ worksheet_id = doc.worksheet('ID')
 worksheet_link = doc.worksheet('link')
 
 students = worksheet_id.col_values(1)
+students_link = worksheet_link.col_values(1)
 students_name = worksheet_id.col_values(2)
 valid = worksheet_id.col_values(3)
 classes = worksheet_id.col_values(5)
@@ -33,6 +34,9 @@ def class_submit():
     grade = 20
     time = 1
     class1 = initial.classs(year, semester, school, grade, time)
+    for i in classes:
+        if i == class1.id:
+            return
     classes.append(class1.id)
     classes_valid.append(1)
     class1.initial(classes, classes_valid)
@@ -48,12 +52,15 @@ def student_submit():
     else:
         school = 3
     grade = 20
-    class1 = classes[0]
-    cnt = 0
-    for i in worksheet_link.col_values(2):
-        if i == class1:
-            cnt = cnt + 1
-    student_no = cnt + 1
+    class1 = classes[1]
+    cnt = 1
+    for i in worksheet_id.col_values(1):
+        if "-" in i:
+            j = i.split("-")[1]
+            k = i.split("-")[0]+"-"+j.split("-")[0]
+            if k == str(school)+'-'+str(grade):
+                cnt = cnt + 1
+    student_no = cnt
     student = initial.student(name, school, grade, student_no)
     student.initial(class1)
 
@@ -115,3 +122,15 @@ def class_delete():
         worksheet_id.update_cell(i + 1, 6, classes_valid[i])
 
 
+def link_stu_class(stu_id, class_id):
+    a = 0
+    for i in range(len(classes)):
+        if classes[i] == class_id and classes_valid[i] == 0:
+            return
+        if classes[i] == class_id and classes_valid[i] == 1:
+            a = a + 1
+    if a != 1:
+        return
+    for i in range(len(students_link)):
+        if students_link[i] == stu_id:
+            worksheet_link.update_cell(i + 1, 2, class_id)

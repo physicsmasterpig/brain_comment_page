@@ -34,6 +34,10 @@ class student:
         self.id = str(school) + "-" + str(grade) + "-" + str(student_no)
 
     def initial(self, clas):
+        students = worksheet_id.col_values(1)
+        for i in students:
+            if self.id == i:
+                return
         length1 = len(worksheet_id.col_values(1))
         length2 = len(worksheet_link.col_values(1))
         worksheet_id.update_cell(length1 + 1, 1, self.id)
