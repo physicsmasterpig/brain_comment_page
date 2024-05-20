@@ -1,6 +1,7 @@
-import studentsubmit
 import attendance
 import comment
+import class_set
+import open
 
-comment.lecture_subject()
-comment.comment_submit()
+class_set.init()
+open.student_data()

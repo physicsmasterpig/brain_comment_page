@@ -1,25 +1,6 @@
 # ui구현은 나중에 하고 일단 콘솔로 입력하는 방식을 사용
 
-import gspread
-import initial
-from oauth2client.service_account import ServiceAccountCredentials
-
-scope = 'https://spreadsheets.google.com/feeds'
-json = 'driven-catalyst-411908-9c041a7750dd.json'
-credentials = ServiceAccountCredentials.from_json_keyfile_name(json, scope)
-gc = gspread.authorize(credentials)
-sheet_url = 'https://docs.google.com/spreadsheets/d/1-xp3axKvBFVAMDt0SpnW1oxtPH9lzlgSvEN-WZna2H0/edit#gid=0'
-doc = gc.open_by_url(sheet_url)
-worksheet_id = doc.worksheet('ID')
-worksheet_link = doc.worksheet('link')
-
-students = worksheet_id.col_values(1)
-students_link = worksheet_link.col_values(1)
-students_name = worksheet_id.col_values(2)
-valid = worksheet_id.col_values(3)
-classes = worksheet_id.col_values(5)
-classes_valid = worksheet_id.col_values(6)
-
+import class_set
 
 def class_submit():
     year = 2024
@@ -33,13 +14,8 @@ def class_submit():
         school = 3
     grade = 20
     time = 1
-    class1 = initial.classs(year, semester, school, grade, time)
-    for i in classes:
-        if i == class1.id:
-            return
-    classes.append(class1.id)
-    classes_valid.append("v")
-    class1.initial(classes, classes_valid)
+    class1 = class_set.classs(str(year) + "-" + str(semester) + "-" + str(school) + "-" + str(grade) + "-" + str(time))
+    class1.initial()
 
 
 def student_submit():
@@ -52,17 +28,16 @@ def student_submit():
     else:
         school = 3
     grade = 20
-    class1 = classes[1]
+    class1 = class_set.classes[0]
     cnt = 1
-    for i in worksheet_id.col_values(1):
+    for i in class_set.id_id:
         if "-" in i:
-            j = i.split("-")[1]
-            k = i.split("-")[0]+"-"+j.split("-")[0]
-            if k == str(school)+'-'+str(grade):
+            j = i.split("-")[0]+'-'+i.split("-")[0]
+            if j == str(school) + '-' + str(grade):
                 cnt = cnt + 1
     student_no = cnt
-    student = initial.student(name, school, grade, student_no)
-    student.initial(class1)
+    student = class_set.student(name, str(school) + "-" + str(grade) + "-" + str(student_no),class1)
+    student.initial()
 
 
 def student_delete():
@@ -113,7 +88,8 @@ def class_delete():
         school = 3
     grade = 20
     time = 1
-    class1 = initial.classs(year, semester, school, grade, time)
+    class1 = class_set.classs(str(year) + "-" + str(semester) + "-" + str(school) + "-" + str(grade) + "-" + str(time),
+                              'i')
     for i in range(len(students_name)):
         if classes_valid == class1.id:
             classes_valid[i] = "i"
