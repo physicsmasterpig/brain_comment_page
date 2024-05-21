@@ -1,7 +1,7 @@
-import attendance
+import func
+import initial_set
 import comment
-import class_set
-import open
 
-class_set.init()
-open.student_data()
+func.init()
+comment.comment_change()
+

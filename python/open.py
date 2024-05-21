@@ -1,5 +1,5 @@
 import gspread
-import class_set
+import func
 from oauth2client.service_account import ServiceAccountCredentials
 
 scope = 'https://spreadsheets.google.com/feeds'
@@ -27,7 +27,7 @@ def student_data():
         if students[i] == student:
             name = student_name[i]
     data = student.split("-")
-    stu = class_set.student(name, int(data[0]), int(data[1]), int(data[2]))
+    stu = func.student(name, int(data[0]), int(data[1]), int(data[2]))
     stu.print()
     week = input("week?")
     classs = ''

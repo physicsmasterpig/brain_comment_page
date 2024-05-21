@@ -34,18 +34,19 @@ comment_student = worksheet_comment.col_values(2)
 comment_points = worksheet_comment.col_values(3)
 comment_comment = worksheet_comment.col_values(4)
 
-classes = []
+classes = {}
+students = {}
 
 
 def init():
-    for i in range(len(id_class)):
-        classes.append(classs(id_class[i]))
-    for i in range(len(classes)):
-        classes[i].valid = id_class_valid[i]
-        for j in range(len(link_class)):
-            if link_class[j] == classes[i].id:
-                classes[i].students.append(student(id_name[j], id_id[j], classes[i]))
-                classes[i].students[len(classes[i].students) - 1].initial()
+    for i in range(1, len(id_class)):
+        classes[id_class[i]] = classs(id_class[i])
+    for i in classes.keys():
+        classes[i].valid = id_class_valid[id_class.index(classes[i].id)]
+        classes[i].student_search()
+    for i in range(1, len(id_id)):
+        students[id_id[i]] = student(id_name[i], id_id[i], link_class[i])
+        students[id_id[i]].valid = id_valid[i]
 
 
 class classs:
@@ -58,25 +59,53 @@ class classs:
         self.id = id
         self.valid = 'v'
         self.students = []
-        classes.append(self)
 
     def initial(self):
         if self.id not in id_class:
             self.valid = 'v'
+            classes[self.id] = self
             id_class.append(self.id)
             id_class_valid.append('v')
-            worksheet_id.update_cell(len(id_class) + 1, 1, self.id)
-            worksheet_id.update_cell(len(id_class) + 1, 2, self.valid)
+            worksheet_id.update_cell(len(id_class), 5, self.id)
+            worksheet_id.update_cell(len(id_class), 6, self.valid)
 
     def invalid(self):
         self.valid = 'i'
         id_class_valid[id_class.index(self.id)] = 'i'
-        worksheet_id.update_cell(id_class.index(self.id) + 1, 2, self.valid)
+        worksheet_id.update_cell(id_class.index(self.id) + 1, 6, self.valid)
 
     def valid(self):
         self.valid = 'v'
         id_class_valid[id_class.index(self.id)] = 'v'
-        worksheet_id.update_cell(id_class.index(self.id) + 1, 2, self.valid)
+        worksheet_id.update_cell(id_class.index(self.id) + 1, 6, self.valid)
+
+    def student_search(self):
+        st = []
+        for i in range(len(link_student)):
+            if link_class[i] == self.id and id_valid[i] == 'v':
+                st.append(id_id[i])
+        self.students = st
+
+    def lecture(self, week, subject, total, number):
+        id = self.id + '-' + str(week)
+        if id in link_lecture:
+            index = link_lecture.index(id)
+            link_subject[index] = subject
+            link_totalscore[index] = total
+            link_number[index] = number
+            worksheet_link.update_cell(index + 1, 5, subject)
+            worksheet_link.update_cell(index + 1, 6, total)
+            worksheet_link.update_cell(index + 1, 7, number)
+        else:
+            index = len(link_lecture)
+            link_lecture.append(id)
+            link_subject.append(subject)
+            link_totalscore.append(total)
+            link_number.append(number)
+            worksheet_link.update_cell(index + 1, 4, id)
+            worksheet_link.update_cell(index + 1, 5, subject)
+            worksheet_link.update_cell(index + 1, 6, total)
+            worksheet_link.update_cell(index + 1, 7, number)
 
 
 class student:
@@ -99,29 +128,33 @@ class student:
             id_name.append(self.name)
             id_valid.append(self.valid)
             link_student.append(self.id)
-            link_class.append(self.clas.id)
-            self.clas.students.append(self)
+            link_class.append(self.clas)
+            if self.clas in classes.keys():
+                classes[self.clas].student_search()
+            students[self.id] = self
             worksheet_id.update_cell(self.index + 1, 1, self.id)
             worksheet_id.update_cell(self.index + 1, 2, self.name)
             worksheet_id.update_cell(self.index + 1, 3, self.valid)
             worksheet_link.update_cell(self.index + 1, 1, self.id)
-            worksheet_link.update_cell(self.index + 1, 2, self.clas.id)
+            worksheet_link.update_cell(self.index + 1, 2, self.clas)
         else:
             self.index = id_id.index(self.id)
-            self.valid = id_valid[self.index]
+            id_valid[self.index] = self.valid
+            link_class[self.index] = self.clas
+            if self.clas in classes.keys():
+                classes[self.clas].student_search()
+            students[self.id] = self
+            worksheet_id.update_cell(self.index + 1, 3, self.valid)
+            worksheet_link.update_cell(self.index + 1, 2, self.clas)
 
     def invalid(self):
         self.valid = 'i'
+        self.clas = 'i'
         id_valid[self.index] = 'i'
         link_class[self.index] = 'i'
         worksheet_id.update_cell(self.index + 1, 3, 'i')
-        worksheet_link.update_cell(self.index, 2, 'i')
-        self.clas.students.delete(self)
-
-    def result_open(self, comment):
-        for i in range(len(comment)):
-            if comment[i] == self.id:
-                self.comment.append(i)
+        worksheet_link.update_cell(self.index + 1, 2, 'i')
+        classes[self.clas].student_search()
 
     def print(self):
         print('이름: ' + self.name)
@@ -132,3 +165,5 @@ class student:
         else:
             print('학교: 대전영재학교')
         print('기수: ' + str(self.grade))
+
+
