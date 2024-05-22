@@ -1,7 +1,8 @@
 import func
 import initial_set
 import comment
+import open
 
 func.init()
-comment.comment_change()
+open.student_week_message()
 

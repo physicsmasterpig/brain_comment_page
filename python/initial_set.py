@@ -30,7 +30,7 @@ def student_submit():
         school = 3
     grade = 20
     class1 = func.classes[list(func.classes.keys())[0]].id
-    student_no = 12345678
+    student_no = 12345687
     student = func.student(name, str(school) + "-" + str(grade) + "-" + str(student_no), class1)
     student.initial()
 
