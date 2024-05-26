@@ -15,7 +15,16 @@ def class_submit():
         school = 3
     grade = 20
     time = 1
+    perweek = 2
+    day = [5, 6]
+    daytime = [13, 19]
+    first = [2024, 5, 26]
     class1 = func.classs(str(year) + "-" + str(semester) + "-" + str(school) + "-" + str(grade) + "-" + str(time))
+    class1.perweek = perweek
+    class1.day = day
+    class1.daytime = daytime
+    class1.first = func.plusdate(first[0], first[1], first[2], -func.whichday(first[0], first[1], first[2]))
+    print(func.whichday(first[0], first[1], first[2]))
     class1.initial()
 
 

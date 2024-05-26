@@ -16,6 +16,10 @@ id_name = worksheet_id.col_values(2)
 id_valid = worksheet_id.col_values(3)
 id_class = worksheet_id.col_values(5)
 id_class_valid = worksheet_id.col_values(6)
+id_perweek = worksheet_id.col_values(7)
+id_day = worksheet_id.col_values(8)
+id_daytime = worksheet_id.col_values(9)
+id_first = worksheet_id.col_values(10)
 
 link_student = worksheet_link.col_values(1)
 link_class = worksheet_link.col_values(2)
@@ -38,11 +42,93 @@ classes = {}
 students = {}
 
 
+def leap(year):
+    if year % 4 == 0:
+        if year % 100 == 0:
+            if year % 400 == 0:
+                return 0
+            else:
+                return 1
+
+        else:
+            return 1
+    else:
+        return 0
+
+
+def numberofdate(year, month):
+    if month == 2:
+        if leap(year):
+            return 29
+        else:
+            return 28
+    elif month < 8:
+        if month % 2 == 1:
+            return 31
+        else:
+            return 30
+    else:
+        if month % 2 == 0:
+            return 31
+        else:
+            return 30
+
+
+def minusdate(year1, month1, date1, year2, month2, date2):
+    result = 0
+    if year2 > year1:
+        for i in range(year1 + 1, year2):
+            result = result + 365 + leap(i)
+        result = result + minusdate(year1, month1, date1, year1, 12, 31) + minusdate(year2, 1, 1, year2, month2, date2)
+    elif year2 < year1:
+        result = -minusdate(year2, month2, date2, year1, month1, date1)
+    else:
+        if month2 > month1:
+            for i in range(month1 + 1, month2):
+                result = result + numberofdate(year1, i)
+            result = result + numberofdate(year1, month1) - date1 + date2
+        elif month2 < month1:
+            result = -minusdate(year2, month2, date2, year1, month1, date1)
+        else:
+            result = date2 - date1
+    return result
+
+
+def plusdate(year1, month1, date1, date):
+    if date >= 0:
+        for i in range(date):
+            date1 = date1 + 1
+            if date1 > numberofdate(year1, month1):
+                date1 = date1 - numberofdate(year1, month1)
+                month1 = month1 + 1
+                if month1 > 12:
+                    month1 = month1 - 12
+                    year1 = year1 + 1
+    else:
+        for i in range(-date):
+            date1 = date1 - 1
+            if date1 <= 0:
+                date1 = date1 + numberofdate(year1, month1)
+                month1 = month1 - 1
+                if month1 <= 0:
+                    month1 = month1 + 12
+                    year1 = year1 - 1
+    return [year1, month1, date1]
+
+
+def whichday(year, month, date):
+    return minusdate(2024, 5, 27, year, month, date) % 7
+
+
 def init():
     for i in range(1, len(id_class)):
         classes[id_class[i]] = classs(id_class[i])
     for i in classes.keys():
-        classes[i].valid = id_class_valid[id_class.index(classes[i].id)]
+        classes[i].valid = id_class_valid[id_class.index(i)]
+        classes[i].perweek = int(id_perweek[id_class.index(i)])
+        classes[i].day = list(map(int, id_day[id_class.index(i)].split("-")))
+        classes[i].daytime = list(map(int, id_daytime[id_class.index(i)].split("-")))
+        classes[i].first = list(map(int, id_first[id_class.index(i)].split(".")))
         classes[i].student_search()
     for i in range(1, len(id_id)):
         students[id_id[i]] = student(id_name[i], id_id[i], link_class[i])
@@ -59,6 +145,10 @@ class classs:
         self.id = id
         self.valid = 'v'
         self.students = []
+        self.perweek = 0
+        self.day = []
+        self.daytime = []
+        self.first = []
 
     def initial(self):
         if self.id not in id_class:
@@ -68,6 +158,18 @@ class classs:
             id_class_valid.append('v')
             worksheet_id.update_cell(len(id_class), 5, self.id)
             worksheet_id.update_cell(len(id_class), 6, self.valid)
+            worksheet_id.update_cell(len(id_class), 7, self.perweek)
+            day = str(self.day[0])
+            daytime = str(self.daytime[0])
+            first = str(self.first[0])
+            for i in range(1, self.perweek):
+                day = day + '-' + str(self.day[i])
+                daytime = daytime + '-' + str(self.daytime[i])
+            for i in range(1, 3):
+                first = first + '.' + str(self.first[i])
+            worksheet_id.update_cell(len(id_class), 8, day)
+            worksheet_id.update_cell(len(id_class), 9, daytime)
+            worksheet_id.update_cell(len(id_class), 10, first)
 
     def invalid(self):
         self.valid = 'i'
@@ -86,8 +188,8 @@ class classs:
                 st.append(id_id[i])
         self.students = st
 
-    def lecture(self, week, subject, total, number):
-        id = self.id + '-' + str(week)
+    def lecture(self, week, day, subject, total, number):
+        id = self.id + '-' + str(week) + '-' + str(day)
         if id in link_lecture:
             index = link_lecture.index(id)
             link_subject[index] = subject
@@ -165,5 +267,3 @@ class student:
         else:
             print('학교: 대전영재학교')
         print('기수: ' + str(self.grade))
-
-

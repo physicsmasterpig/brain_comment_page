@@ -12,6 +12,8 @@ doc = gc.open_by_url(sheet_url)
 worksheet_link = doc.worksheet('link')
 worksheet_comment = doc.worksheet('comment')
 
+days = ['월', '화', '수', '목', '금', '토', '일']
+
 
 def make_lecture():
     classs = input('class?')
@@ -22,16 +24,46 @@ def make_lecture():
     if cnt != 1:
         return
     week = input('week?')
-    subject = input('subject?')
-    numbers = input('number of problems?')
-    total = input('total score?')
-    func.classes[classs].lecture(week, subject, total, numbers)
+    perweek = func.classes[classs].perweek
+    day = func.classes[classs].day
+    daytime = func.classes[classs].daytime
+    first = func.classes[classs].first
+    if perweek > 1:
+        for i in range(perweek):
+            date = func.plusdate(first[0], first[1], first[2], (int(week) - 1) * 7 + day[i])
+            print(str(i + 1) + '. ' + str(date[0]) + '년 ' + str(date[1]) + '월 ' + str(date[2]) + '일 (' + days[
+                day[i]] + ') ' + str(
+                daytime[i]) + '시')
+        k = input('which day (respond by number)')
+        subject = input('subject?')
+        numbers = input('number of problems?')
+        total = input('total score?')
+        func.classes[classs].lecture(week, day[int(k) - 1], subject, total, numbers)
+    else:
+        subject = input('subject?')
+        numbers = input('number of problems?')
+        total = input('total score?')
+        func.classes[classs].lecture(week, day[0], subject, total, numbers)
 
 
 def comment_submit():
     student = input('student')
     week = input('week?')
-    lecture = func.students[student].clas + '-' + week
+    classs = func.students[student].clas
+    if int(func.classes[classs].perweek) > 1:
+        perweek = func.classes[classs].perweek
+        day = func.classes[classs].day
+        daytime = func.classes[classs].daytime
+        first = func.classes[classs].first
+        for i in range(perweek):
+            date = func.plusdate(first[0], first[1], first[2], (int(week) - 1) * 7 + day[i])
+            print(str(i + 1) + '. ' + str(date[0]) + '년 ' + str(date[1]) + '월 ' + str(date[2]) + '일 (' + days[
+                day[i]] + ') ' + str(
+                daytime[i]) + '시')
+        k = input('which day (respond by number)')
+        lecture = func.students[student].clas + '-' + week + '-' + str(func.classes[classs].day[int(k) - 1])
+    else:
+        lecture = func.students[student].clas + '-' + week + '-' + str(func.classes[classs].day[0])
     if lecture not in func.link_lecture:
         return
     index = func.link_lecture.index(lecture)
@@ -75,7 +107,21 @@ def comment_submit():
 def comment_change():
     student = input('student')
     week = input('week?')
-    lecture = func.students[student].clas + '-' + week
+    classs = func.students[student].clas
+    if int(func.classes[classs].perweek) > 1:
+        perweek = func.classes[classs].perweek
+        day = func.classes[classs].day
+        daytime = func.classes[classs].daytime
+        first = func.classes[classs].first
+        for i in range(perweek):
+            date = func.plusdate(first[0], first[1], first[2], (int(week) - 1) * 7 + day[i])
+            print(str(i + 1) + '. ' + str(date[0]) + '년 ' + str(date[1]) + '월 ' + str(date[2]) + '일 (' + days[
+                day[i]] + ') ' + str(
+                daytime[i]) + '시')
+        k = input('which day (respond by number)')
+        lecture = func.students[student].clas + '-' + week + '-' + str(func.classes[classs].day[int(k) - 1])
+    else:
+        lecture = func.students[student].clas + '-' + week + '-' + str(func.classes[classs].day[0])
     if lecture not in func.link_lecture:
         return
     index = func.link_lecture.index(lecture)
