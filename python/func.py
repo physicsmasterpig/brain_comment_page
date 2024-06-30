@@ -10,6 +10,7 @@ doc = gc.open_by_url(sheet_url)
 worksheet_id = doc.worksheet('ID')
 worksheet_link = doc.worksheet('link')
 worksheet_comment = doc.worksheet('comment')
+worksheet_attendance = doc.worksheet('attendance')
 
 id_id = worksheet_id.col_values(1)
 id_name = worksheet_id.col_values(2)
@@ -37,6 +38,10 @@ comment_problem = worksheet_comment.col_values(1)
 comment_student = worksheet_comment.col_values(2)
 comment_points = worksheet_comment.col_values(3)
 comment_comment = worksheet_comment.col_values(4)
+
+attendance_lecture = worksheet_attendance.col_values(1)
+attendance_student = worksheet_attendance.col_values(2)
+attendance_value = worksheet_attendance.col_values(3)
 
 classes = {}
 students = {}
@@ -267,3 +272,10 @@ class student:
         else:
             print('학교: 대전영재학교')
         print('기수: ' + str(self.grade))
+
+    def change(self, classs):
+        link_class[link_student.index(self.id)] = classs
+        worksheet_link.update_cell(link_student.index(self.id)+1, 2, classs)
+        classes[self.clas].student_search()
+        self.clas = classs
+        classes[self.clas].student_search()
